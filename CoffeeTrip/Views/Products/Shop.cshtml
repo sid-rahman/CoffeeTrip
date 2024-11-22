@@ -7,13 +7,13 @@
     <title>CoffeeTrip</title>
 </head>
 <body>
-    <h1>Welcome to CoffeTrip</h1>
+    <h1>Welcome to CoffeeTrip</h1>
 
     @foreach (var item in Model)
     {
         <img width="100" height="100" src="@item.ImgUrl" />
         <h3>@item.Name</h3>
-        <p>@item.Price</p>
+        <p>&#2547;@item.Price.ToString("N2")</p>
     }
 </body>
 </html>

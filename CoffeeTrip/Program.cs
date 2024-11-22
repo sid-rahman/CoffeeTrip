@@ -1,11 +1,14 @@
+using CoffeeTrip.Data;
 using CoffeeTrip.Models.Interfaces;
 using CoffeeTrip.Models.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddDbContext<CoffeeTripDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("CoffeeTripDbContextConnection")));
 
 var app = builder.Build();
 
