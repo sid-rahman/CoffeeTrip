@@ -1,0 +1,19 @@
+﻿@using CoffeeTrip.Models
+@model IEnumerable<Product>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CoffeeTrip</title>
+</head>
+<body>
+    <h1>Welcome to CoffeTrip</h1>
+
+    @foreach (var item in Model)
+    {
+        <img width="100" height="100" src="@item.ImgUrl" />
+        <h3>@item.Name</h3>
+        <p>@item.Price</p>
+    }
+</body>
+</html>
