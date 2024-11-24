@@ -15,5 +15,13 @@ namespace CoffeeTrip.Controllers
         {
             return View(_productRepository.GetAllProducts());
         }
+
+        public IActionResult Detail(int id)
+        {
+            var product = _productRepository.GetProductDetailsById(id);
+            if (product == null)
+                return NotFound();
+            return View(product);
+        }
     }
 }

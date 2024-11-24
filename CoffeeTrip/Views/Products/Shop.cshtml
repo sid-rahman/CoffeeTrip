@@ -1,19 +1,10 @@
-﻿@using CoffeeTrip.Models
-@model IEnumerable<Product>
+﻿@model IEnumerable<Product>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>CoffeeTrip</title>
-</head>
-<body>
-    <h1>Welcome to CoffeeTrip</h1>
+<h1>Welcome to CoffeeTrip</h1>
 
-    @foreach (var item in Model)
-    {
-        <img width="100" height="100" src="@item.ImgUrl" />
-        <h3>@item.Name</h3>
-        <p>&#2547;@item.Price.ToString("N2")</p>
-    }
-</body>
-</html>
+@foreach (var item in Model)
+{
+    <img width="100" height="100" src="@item.ImgUrl" />
+    <a asp-controller="Products" asp-action="Detail" asp-route-id ="@item.Id"> <h3>@item.Name</h3> </a>
+    <p>&#2547;@item.Price.ToString("N2")</p>
+}
