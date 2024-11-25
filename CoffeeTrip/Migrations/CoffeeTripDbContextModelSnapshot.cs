@@ -61,11 +61,11 @@ namespace CoffeeTrip.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "A classic Italian coffee combining equal parts espresso, steamed milk, and milk foam for a creamy texture.",
-                            ImgUrl = "/images/cappuccino.jpg",
+                            Description = "A concentrated coffee shot with a bold, intense flavor, serving as the foundation for many coffee beverages.",
+                            ImgUrl = "/images/espresso.jpg",
                             IsTrending = true,
-                            Name = "Cappuccino",
-                            Price = 349m
+                            Name = "Espresso",
+                            Price = 249m
                         },
                         new
                         {
@@ -79,11 +79,11 @@ namespace CoffeeTrip.Migrations
                         new
                         {
                             Id = 4,
-                            Description = "A concentrated coffee shot with a bold, intense flavor, serving as the foundation for many coffee beverages.",
-                            ImgUrl = "/images/espresso.jpg",
+                            Description = "A classic Italian coffee combining equal parts espresso, steamed milk, and milk foam for a creamy texture.",
+                            ImgUrl = "/images/cappuccino.jpg",
                             IsTrending = true,
-                            Name = "Espresso",
-                            Price = 249m
+                            Name = "Cappuccino",
+                            Price = 349m
                         },
                         new
                         {

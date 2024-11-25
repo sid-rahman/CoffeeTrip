@@ -28,10 +28,10 @@ namespace CoffeeTrip.Data
                 new Product
                 {
                     Id = 2,
-                    Name = "Cappuccino",
-                    Description = "A classic Italian coffee combining equal parts espresso, steamed milk, and milk foam for a creamy texture.",
-                    Price = 349m,
-                    ImgUrl = "/images/cappuccino.jpg",
+                    Name = "Espresso",
+                    Description = "A concentrated coffee shot with a bold, intense flavor, serving as the foundation for many coffee beverages.",
+                    Price = 249m,
+                    ImgUrl = "/images/espresso.jpg",
                     IsTrending = true
                 },
                 new Product
@@ -46,10 +46,10 @@ namespace CoffeeTrip.Data
                 new Product
                 {
                     Id = 4,
-                    Name = "Espresso",
-                    Description = "A concentrated coffee shot with a bold, intense flavor, serving as the foundation for many coffee beverages.",
-                    Price = 249m,
-                    ImgUrl = "/images/espresso.jpg",
+                    Name = "Cappuccino",
+                    Description = "A classic Italian coffee combining equal parts espresso, steamed milk, and milk foam for a creamy texture.",
+                    Price = 349m,
+                    ImgUrl = "/images/cappuccino.jpg",
                     IsTrending = true
                 },
                 new Product
