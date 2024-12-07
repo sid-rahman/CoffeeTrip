@@ -3,10 +3,10 @@
     public interface IShoppingCartRepository
     {
         void AddToCart(Product product);
-        void RemoveFromCart(Product product);
+        int RemoveFromCart(Product product);
         void ClearCart();
         List<ShoppingCartItem> GetShoppingCartItems();
-        decimal GetTotalAmount();
+        decimal GetTotalPrice();
         public List<ShoppingCartItem>? ShoppingCartItems { get; set; }
     }
 }
