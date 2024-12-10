@@ -1,10 +1,12 @@
 ﻿using CoffeeTrip.Models;
 using CoffeeTrip.Models.Interfaces;
 using CoffeeTrip.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoffeeTrip.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private IOrderRepository orderRepository;

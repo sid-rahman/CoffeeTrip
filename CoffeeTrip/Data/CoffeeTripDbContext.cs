@@ -1,9 +1,10 @@
 ﻿using CoffeeTrip.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeTrip.Data
 {
-    public class CoffeeTripDbContext : DbContext
+    public class CoffeeTripDbContext : IdentityDbContext
     {
         public CoffeeTripDbContext(DbContextOptions<CoffeeTripDbContext> options) : base(options) 
         { 

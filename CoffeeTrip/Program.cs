@@ -2,6 +2,7 @@ using CoffeeTrip.Data;
 using CoffeeTrip.Models.Interfaces;
 using CoffeeTrip.Models.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,11 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 
 builder.Services.AddDbContext<CoffeeTripDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("CoffeeTripDbContextConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<CoffeeTripDbContext>();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 app.UseSession();
@@ -29,9 +33,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+app.MapRazorPages();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
