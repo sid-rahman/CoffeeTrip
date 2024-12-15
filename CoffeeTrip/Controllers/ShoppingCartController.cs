@@ -23,7 +23,7 @@ namespace CoffeeTrip.Controllers
             return View(items);
         }
 
-        public RedirectToActionResult AddToShoppingCart(int productId)
+        public IActionResult AddToShoppingCart(int productId)
         {
             var product = _productRepository.GetProductDetailsById(productId);
             if (product != null) 
@@ -32,7 +32,7 @@ namespace CoffeeTrip.Controllers
                 cartCount = _shoppingCartRepository.GetShoppingCartItems().Count();
                 HttpContext.Session.SetInt32("CartCount", cartCount);
             }
-            return RedirectToAction("Index");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public RedirectToActionResult RemoveFromShoppingCart(int productId)

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace CoffeeTrip.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedIdentity : Migration
+    public partial class ALlIncluding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +50,42 @@ namespace CoffeeTrip.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrderPlacedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsTrending = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,8 +134,8 @@ namespace CoffeeTrip.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -141,8 +179,8 @@ namespace CoffeeTrip.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -154,6 +192,70 @@ namespace CoffeeTrip.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetails",
+                columns: table => new
+                {
+                    OrderDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderQuantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetails", x => x.OrderDetailId);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCartItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ShoppingCartId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ImgUrl", "IsTrending", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, "Start your day with this smooth and mild coffee, crafted for a gentle yet satisfying wake-up call. Perfect for those who love a classic, balanced cup without overpowering flavors.", "/images/MorningBliss.jpg", false, "Morning Bliss Instant Coffee", 999m },
+                    { 2, "A rich and robust instant coffee with deep, smoky notes to power through your busy mornings. Ideal for strong coffee lovers who enjoy bold flavors.", "/images/BoldAwakening.jpg", true, "Bold Awakening Dark Roast", 1050m },
+                    { 3, " Experience the creamy sweetness of vanilla in every sip with this indulgent instant coffee. A delightful treat for moments when you crave a touch of luxury.", "/images/VanillaVelvet.jpg", false, "Vanilla Velvet Flavored Coffee", 1200m },
+                    { 4, "Infused with the irresistible aroma of roasted hazelnuts, this blend offers a nutty twist to your coffee routine. A perfect choice for a cozy, flavorful cup.", "/images/HazelnutHeaven.jpg", true, "Hazelnut Heaven Instant Blend", 870m },
+                    { 5, "Packed with antioxidants, this green coffee blend is a guilt-free way to enjoy your caffeine fix. Ideal for health-conscious coffee drinkers seeking a natural energy boost.", "/images/GreenBrew.jpg", false, "Green Brew Healthy Coffee", 600m },
+                    { 6, "Made from 100% premium Arabica beans, this instant coffee delivers a smooth, full-bodied flavor. Perfect for coffee enthusiasts who appreciate quality in every sip.", "/images/LuxuryReserve.jpg", true, "Luxury Reserve Arabica Blend", 1349m },
+                    { 7, "Indulge in the perfect blend of chocolate and coffee with this mocha-flavored instant latte. Great for sweet-toothed coffee lovers and dessert-style drinks.", "/images/MochaMagic.jpg", true, "Mocha Magic Instant Latte", 750m },
+                    { 8, " A cozy mix of cinnamon, nutmeg, and clove infused with coffee, perfect for the autumn season. Sip into the warmth of fall with every cup.", "/images/PumpkinSpice.jpg", false, "Pumpkin Spice Latte", 600m },
+                    { 9, "Convenient, single-serve sachets for coffee on the go. Each sachet delivers a fresh, balanced brew—perfect for busy mornings or outdoor adventures", "/images/TravelBuddy.jpg", true, "Travel Buddy Coffee Sachets (10 Pack)", 490m }
                 });
 
             migrationBuilder.CreateIndex(
@@ -194,6 +296,21 @@ namespace CoffeeTrip.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderId",
+                table: "OrderDetails",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_ProductId",
+                table: "OrderDetails",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItems_ProductId",
+                table: "ShoppingCartItems",
+                column: "ProductId");
         }
 
         /// <inheritdoc />
@@ -215,10 +332,22 @@ namespace CoffeeTrip.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCartItems");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }

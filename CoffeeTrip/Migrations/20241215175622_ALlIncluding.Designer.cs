@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeTrip.Migrations
 {
     [DbContext(typeof(CoffeeTripDbContext))]
-    [Migration("20241210135256_AddedIdentity")]
-    partial class AddedIdentity
+    [Migration("20241215175622_ALlIncluding")]
+    partial class ALlIncluding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,56 +119,83 @@ namespace CoffeeTrip.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "A rich, bold coffee made by diluting a shot of espresso with hot water, offering a smooth and robust flavor.",
-                            ImgUrl = "/images/americano.jpg",
+                            Description = "Start your day with this smooth and mild coffee, crafted for a gentle yet satisfying wake-up call. Perfect for those who love a classic, balanced cup without overpowering flavors.",
+                            ImgUrl = "/images/MorningBliss.jpg",
                             IsTrending = false,
-                            Name = "Americano",
-                            Price = 299m
+                            Name = "Morning Bliss Instant Coffee",
+                            Price = 999m
                         },
                         new
                         {
                             Id = 2,
-                            Description = "A concentrated coffee shot with a bold, intense flavor, serving as the foundation for many coffee beverages.",
-                            ImgUrl = "/images/espresso.jpg",
+                            Description = "A rich and robust instant coffee with deep, smoky notes to power through your busy mornings. Ideal for strong coffee lovers who enjoy bold flavors.",
+                            ImgUrl = "/images/BoldAwakening.jpg",
                             IsTrending = true,
-                            Name = "Espresso",
-                            Price = 249m
+                            Name = "Bold Awakening Dark Roast",
+                            Price = 1050m
                         },
                         new
                         {
                             Id = 3,
-                            Description = "A traditional brewed coffee prepared using a drip filter, known for its balanced and smooth taste.",
-                            ImgUrl = "/images/drip-coffee.jpg",
+                            Description = " Experience the creamy sweetness of vanilla in every sip with this indulgent instant coffee. A delightful treat for moments when you crave a touch of luxury.",
+                            ImgUrl = "/images/VanillaVelvet.jpg",
                             IsTrending = false,
-                            Name = "Drip Coffee",
-                            Price = 199m
+                            Name = "Vanilla Velvet Flavored Coffee",
+                            Price = 1200m
                         },
                         new
                         {
                             Id = 4,
-                            Description = "A classic Italian coffee combining equal parts espresso, steamed milk, and milk foam for a creamy texture.",
-                            ImgUrl = "/images/cappuccino.jpg",
+                            Description = "Infused with the irresistible aroma of roasted hazelnuts, this blend offers a nutty twist to your coffee routine. A perfect choice for a cozy, flavorful cup.",
+                            ImgUrl = "/images/HazelnutHeaven.jpg",
                             IsTrending = true,
-                            Name = "Cappuccino",
-                            Price = 349m
+                            Name = "Hazelnut Heaven Instant Blend",
+                            Price = 870m
                         },
                         new
                         {
                             Id = 5,
-                            Description = "A creamy coffee drink made with a shot of espresso and steamed milk, topped with a thin layer of foam.",
-                            ImgUrl = "/images/latte.jpg",
-                            IsTrending = true,
-                            Name = "Latte",
-                            Price = 399m
+                            Description = "Packed with antioxidants, this green coffee blend is a guilt-free way to enjoy your caffeine fix. Ideal for health-conscious coffee drinkers seeking a natural energy boost.",
+                            ImgUrl = "/images/GreenBrew.jpg",
+                            IsTrending = false,
+                            Name = "Green Brew Healthy Coffee",
+                            Price = 600m
                         },
                         new
                         {
                             Id = 6,
-                            Description = "A decadent coffee treat blending espresso, steamed milk, and chocolate syrup, topped with whipped cream.",
-                            ImgUrl = "/images/mocha.jpg",
+                            Description = "Made from 100% premium Arabica beans, this instant coffee delivers a smooth, full-bodied flavor. Perfect for coffee enthusiasts who appreciate quality in every sip.",
+                            ImgUrl = "/images/LuxuryReserve.jpg",
                             IsTrending = true,
-                            Name = "Mocha",
-                            Price = 449m
+                            Name = "Luxury Reserve Arabica Blend",
+                            Price = 1349m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Indulge in the perfect blend of chocolate and coffee with this mocha-flavored instant latte. Great for sweet-toothed coffee lovers and dessert-style drinks.",
+                            ImgUrl = "/images/MochaMagic.jpg",
+                            IsTrending = true,
+                            Name = "Mocha Magic Instant Latte",
+                            Price = 750m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = " A cozy mix of cinnamon, nutmeg, and clove infused with coffee, perfect for the autumn season. Sip into the warmth of fall with every cup.",
+                            ImgUrl = "/images/PumpkinSpice.jpg",
+                            IsTrending = false,
+                            Name = "Pumpkin Spice Latte",
+                            Price = 600m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Convenient, single-serve sachets for coffee on the go. Each sachet delivers a fresh, balanced brew—perfect for busy mornings or outdoor adventures",
+                            ImgUrl = "/images/TravelBuddy.jpg",
+                            IsTrending = true,
+                            Name = "Travel Buddy Coffee Sachets (10 Pack)",
+                            Price = 490m
                         });
                 });
 
@@ -341,10 +368,12 @@ namespace CoffeeTrip.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -381,10 +410,12 @@ namespace CoffeeTrip.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
